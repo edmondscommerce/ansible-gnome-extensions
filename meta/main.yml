@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: gnome_extensions
+  role_name: edmondscommerce.gnome-extensions
   author: Jared Hocutt
   description: |
     Installs Gnome extensions specified by the user.
