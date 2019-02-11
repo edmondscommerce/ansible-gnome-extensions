@@ -45,9 +45,9 @@
       file:
         path: ~/.local/share/gnome-shell/extensions/{{ item.item.item.json.uuid }}
         state: directory
-        owner: "{{ ansible_user_uid }}"
-        group: "{{ ansible_user_gid }}"
-        mode: 0775
+#        owner: "{{ ansible_user_uid }}"
+#        group: "{{ ansible_user_gid }}"
+#        mode: 0775
       loop: "{{ download_gnome_shell_extensions.results }}"
       loop_control:
         label: "{{ item.item.item.json.name }}"
