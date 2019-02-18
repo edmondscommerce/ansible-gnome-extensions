@@ -34,7 +34,8 @@
     - name: Download Gnome Shell extensions
       get_url:
         url: https://extensions.gnome.org{{ item.item.json.download_url }}
-        dest: "{{ gnome_extension_download_dir.path }}/{{ item.item.json.uuid }}.zip"
+        #dest: "{{ gnome_extension_download_dir.path }}/{{ item.item.json.uuid }}.zip"
+        dest: "{{ gnome_extension_download_dir.path }}/{{ item.item.json.pk }}.zip"
       loop: "{{ st_existing_extensions.results }}"
       loop_control:
         label: "{{ item.item.json.name }}"
@@ -45,8 +46,8 @@
       file:
         path: ~/.local/share/gnome-shell/extensions/{{ item.item.item.json.uuid }}
         state: directory
-        owner: "{{ ansible_user_uid }}"
-        group: "{{ ansible_user_gid }}"
+#        owner: "{{ ansible_user_uid }}"
+#        group: "{{ ansible_user_gid }}"
         mode: 0775
       loop: "{{ download_gnome_shell_extensions.results }}"
       loop_control:
