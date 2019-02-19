@@ -65,24 +65,24 @@
         label: "{{ item.item.item.json.name }}"
       when: not item|skipped
 
-    - name: Enable Gnome Shell extensions
-      shell: |
-        psline=$(ps waux | grep [g]nome-session-binary | grep -v gdm)
-        PID=$(echo $psline | cut -d ' ' -f 2)
-        if [[ "" == "$PID" ]]
-        then
-          echo "Failed finding gnome shell session PID, there must be an active logged in session for this to work"
-          exit 1
-        fi
-        export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ | cut -d= -f2-)
-        echo "DBUS_SESSION_BUS_ADDRESS set to $DBUS_SESSION_BUS_ADDRESS"
-        GSETTINGS_BACKEND=dconf
-        gnome-shell-extension-tool --enable-extension {{ item.item.item.json.uuid }} || gnome-shell-extension-tool --reload-extension {{ item.item.item.json.uuid }}
-      register: enable_gnome_shell_extensions
-      loop: "{{ download_gnome_shell_extensions.results }}"
-      loop_control:
-        label: "{{ item.item.item.json.name }}"
-      #when: not item|skipped
+#    - name: Enable Gnome Shell extensions
+#      shell: |
+#        psline=$(ps waux | grep [g]nome-session-binary | grep -v gdm)
+#        PID=$(echo $psline | cut -d ' ' -f 2)
+#        if [[ "" == "$PID" ]]
+#        then
+#          echo "Failed finding gnome shell session PID, there must be an active logged in session for this to work"
+#          exit 1
+#        fi
+#        export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ | cut -d= -f2-)
+#        echo "DBUS_SESSION_BUS_ADDRESS set to $DBUS_SESSION_BUS_ADDRESS"
+#        GSETTINGS_BACKEND=dconf
+#        gnome-shell-extension-tool --enable-extension {{ item.item.item.json.uuid }} || gnome-shell-extension-tool --reload-extension {{ item.item.item.json.uuid }}
+#      register: enable_gnome_shell_extensions
+#      loop: "{{ download_gnome_shell_extensions.results }}"
+#      loop_control:
+#        label: "{{ item.item.item.json.name }}"
+#      #when: not item|skipped
   always:
     - name: Delete temporary download directory
       file:
