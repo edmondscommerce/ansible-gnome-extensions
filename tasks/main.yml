@@ -52,7 +52,7 @@
       loop: "{{ download_gnome_shell_extensions.results }}"
       loop_control:
         label: "{{ item.item.item.json.name }}"
-      when: not item|skipped
+      when: not item.item | default(True) | bool
 
 
     - name: Install Gnome Shell extensions
@@ -63,7 +63,7 @@
       loop: "{{ download_gnome_shell_extensions.results }}"
       loop_control:
         label: "{{ item.item.item.json.name }}"
-      when: not item|skipped
+      when: not item.item | default(True) | bool
 
 #    - name: Enable Gnome Shell extensions
 #      shell: |
